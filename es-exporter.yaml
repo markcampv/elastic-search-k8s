@@ -1,0 +1,14 @@
+prometheus-elasticsearch-exporter:
+  # the helm generated name is way too long
+  fullname: 'elasticsearch-exporter'
+  serviceMonitor:
+    enabled: true
+  es:
+    uri: http://elasticsearch-master.elastic.svc.cluster.local:9200
+  prometheusRule:
+    enabled: false
+podAnnotations:
+  consul.hashicorp.com/connect-inject: "true"
+  consul.hashicorp.com/transparent-proxy: "true"
+  consul.hashicorp.com/enable-metrics-merging: "false"
+  consul.hashicorp.com/transparent-proxy-exclude-inbound-ports: "9108"

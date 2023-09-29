@@ -1,0 +1,32 @@
+elasticsearch:
+esConfig:
+  elasticsearch.yml: |
+    # enable anonymous access
+    http.port: 9200
+    http.host: 0.0.0.0
+    discovery.seed_hosts: ["elasticsearch-master-0"]
+    #discovery.seed_hosts: ["elasticsearch-master-0", "elasticsearch-master-1", "elasticsearch-master-2"]
+    #cluster.initial_master_nodes: ["elasticsearch-master-0", "elasticsearch-master-1","elasticsearch-master-2"]
+    xpack.license.self_generated.type: trial
+    xpack.security.authc.anonymous.roles: superuser
+    xpack.security.enabled: false
+    xpack.security.http.ssl.enabled: false
+    xpack.security.transport.ssl.enabled: false
+    xpack.security.enrollment.enabled: false
+    cluster.name: "elasticsearch"
+    logger.org.elasticsearch.http: TRACE
+esJavaOpts: -Xmx1g -Xms1g -Dlog4j2.formatMsgNoLookups=true -XX:-UseContainerSupport
+protocol: http
+httpPort: 9200
+podAnnotations:
+  consul.hashicorp.com/connect-inject: "true"
+  consul.hashicorp.com/connect-service: elasticsearch-master
+  consul.hashicorp.com/enable-metrics-merging: "false"
+  consul.hashicorp.com/transparent-proxy: "true"
+  consul.hashicorp.com/transparent-proxy-exclude-inbound-ports: "9300"
+  consul.hashicorp.com/transparent-proxy-exclude-outbound-ports: "9300"
+replicas: 3
+
+
+
+
